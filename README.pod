@@ -1,0 +1,76 @@
+=pod
+
+=head1 NAME
+
+TAP::Harness::Restricted - Skip some test files
+
+=head1 VERSION
+
+version 0.001
+
+=head1 SYNOPSIS
+
+    # command line
+    $ HARNESS_SUBCLASS=TAP::Harness::Restricted make test
+
+    # bashrc file
+    export HARNESS_SUBCLASS=TAP::Harness::Restricted
+
+=head1 DESCRIPTION
+
+This module is a trivial subclass of L<TAP::Harness>.  It overrides the
+C<aggregate_tests> function to filter out tests that I didn't want getting in
+the way of module installation.
+
+The current criteria include:
+
+=over 4
+
+=item *
+
+File names that look like F<pod.t> or F<pod-coverage.t>, with optional leading numbers
+
+=item *
+
+Files that contain the text C<use Test::Pod>
+
+=back
+
+Suggestions for other annoying things to filter out are welcome.
+
+If someone is inclined to make this extensible so people can put their own criteria into
+configuration files, please email the author with ideas before sending a patch.
+
+=for Pod::Coverage method_names_here
+
+=for :stopwords cpan testmatrix url annocpan anno bugtracker rt cpants kwalitee diff irc mailto metadata placeholders metacpan
+
+=head1 SUPPORT
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the issue tracker
+at L<https://github.com/dagolden/tap-harness-restricted/issues>.
+You will be notified automatically of any progress on your issue.
+
+=head2 Source Code
+
+This is open source software.  The code repository is available for
+public review and contribution under the terms of the license.
+
+L<https://github.com/dagolden/tap-harness-restricted>
+
+  git clone git://github.com/dagolden/tap-harness-restricted.git
+
+=head1 AUTHOR
+
+David Golden <dagolden@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2013 by David Golden.
+
+This is free software, licensed under:
+
+  The Apache License, Version 2.0, January 2004
+
