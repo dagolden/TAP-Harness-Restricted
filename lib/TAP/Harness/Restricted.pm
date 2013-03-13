@@ -19,7 +19,7 @@ my $maybe_prefix = qr/(?:\d+[_-]?)?/;
 
 my @banned_names = (
     qr/${maybe_prefix}pod\.t/,
-    qr/${maybe_prefix}pod-?coverage\.t/,
+    qr/${maybe_prefix}pod[_-]?coverage\.t/,
 );
 
 my @banned_code = (
@@ -28,6 +28,7 @@ my @banned_code = (
 
 sub _file_ok {
     my $file = path(shift);
+    return unless $file->exists;
     my $basename = $file->basename;
     return if grep { $basename =~ $_ } @banned_names;
     my $guts = $file->slurp;
