@@ -41,10 +41,10 @@
       "runtime" : {
          "requires" : {
             "Path::Tiny" : "0",
-            "TAP::Harness" : "0",
-            "parent" : "0",
+            "TAP::Harness" : "3.18",
             "perl" : "5.008001",
             "strict" : "0",
+            "superclass" : "0",
             "warnings" : "0"
          }
       },
@@ -64,7 +64,7 @@
    "provides" : {
       "TAP::Harness::Restricted" : {
          "file" : "lib/TAP/Harness/Restricted.pm",
-         "version" : "0.001"
+         "version" : "0.002"
       }
    },
    "release_status" : "stable",
@@ -79,6 +79,6 @@
          "web" : "https://github.com/dagolden/tap-harness-restricted"
       }
    },
-   "version" : "0.001"
+   "version" : "0.002"
 }
 

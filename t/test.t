@@ -9,7 +9,8 @@ use File::pushd qw/tempd/;
 # monkey patch TAP::Harness
 BEGIN {
     $INC{'TAP/Harness.pm'} = 1;
-    *TAP::Harness::aggregate_tests = sub { return @_ }
+    *TAP::Harness::aggregate_tests = sub { return @_ };
+    $TAP::Harness::VERSION = 3.18;
 }
 
 use TAP::Harness::Restricted;

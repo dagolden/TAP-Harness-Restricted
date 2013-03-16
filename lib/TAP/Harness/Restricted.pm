@@ -6,7 +6,7 @@ package TAP::Harness::Restricted;
 # ABSTRACT: Skip some test files
 # VERSION
 
-use parent 'TAP::Harness';
+use superclass 'TAP::Harness' => 3.18;
 use Path::Tiny;
 
 sub aggregate_tests {
