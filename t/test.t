@@ -17,6 +17,8 @@ use TAP::Harness::Restricted;
 
 my $wd = tempd;
 
+$ENV{HARNESS_SKIP} = 't/*skipped.t';
+
 my @filter_on_name = map { "t/$_" } qw(
     pod.t
     99-pod.t
@@ -24,6 +26,9 @@ my @filter_on_name = map { "t/$_" } qw(
     pod-coverage.t
     99-pod-coverage.t
     99_pod_coverage.t
+    skipped.t
+    99_skipped.t
+    99-skipped.t
 );
 
 path($_)->touchpath for @filter_on_name;

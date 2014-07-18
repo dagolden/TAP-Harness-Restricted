@@ -9,8 +9,11 @@ package TAP::Harness::Restricted;
 use superclass 'TAP::Harness' => 3.18;
 use Path::Tiny;
 
+my %banned_files;
+
 sub aggregate_tests {
     my ($self, $aggregate, @tests) = @_;
+    %banned_files = map { $_ => undef } map { glob } split " ", $ENV{HARNESS_SKIP} || '';
     @tests = grep { _file_ok($_) } @tests;
     return $self->SUPER::aggregate_tests($aggregate, @tests);
 }
@@ -26,11 +29,13 @@ my @banned_code = (
     qr/use Test::Pod/, # also gets Test::Pod::Coverage
 );
 
+
 sub _file_ok {
     my $file = path(shift);
     return unless $file->exists;
     my $basename = $file->basename;
     return if grep { $basename =~ $_ } @banned_names;
+    return if exists $banned_files{$file->relative};
     my $guts = $file->slurp;
     return if grep { $guts =~ m{$_}ms } @banned_code;
     return 1;
@@ -60,6 +65,7 @@ The current criteria include:
 =for :list
 * File names that look like F<pod.t> or F<pod-coverage.t>, with optional leading numbers
 * Files that contain the text C<use Test::Pod>
+* Files matching any of the space-separated glob patterns in C<$ENV{HARNESS_SKIP}>
 
 Suggestions for other annoying things to filter out are welcome.
 
