@@ -20,15 +20,15 @@ my $wd = tempd;
 $ENV{HARNESS_SKIP} = 't/*skipped.t';
 
 my @filter_on_name = map { "t/$_" } qw(
-    pod.t
-    99-pod.t
-    99_pod.t
-    pod-coverage.t
-    99-pod-coverage.t
-    99_pod_coverage.t
-    skipped.t
-    99_skipped.t
-    99-skipped.t
+  pod.t
+  99-pod.t
+  99_pod.t
+  pod-coverage.t
+  99-pod-coverage.t
+  99_pod_coverage.t
+  skipped.t
+  99_skipped.t
+  99-skipped.t
 );
 
 path($_)->touchpath for @filter_on_name;
@@ -53,21 +53,21 @@ HERE
 for my $k ( keys %bad_content ) {
     my $f = path($k);
     $f->touchpath;
-    $f->spew($bad_content{$k});
+    $f->spew( $bad_content{$k} );
 }
 
 my @ok_files = qw(
-    t/ok.t
-    t/also_ok.t
+  t/ok.t
+  t/also_ok.t
 );
 
 path($_)->touchpath for @ok_files;
 
-my (undef, undef, @got) = TAP::Harness::Restricted->aggregate_tests(
-    undef, @filter_on_name, @ok_files, keys %bad_content
-);
+my ( undef, undef, @got ) =
+  TAP::Harness::Restricted->aggregate_tests( undef, @filter_on_name, @ok_files,
+    keys %bad_content );
 
-is_deeply( [sort @got], [sort @ok_files], "files filtered" );
+is_deeply( [ sort @got ], [ sort @ok_files ], "files filtered" );
 
 done_testing;
 # COPYRIGHT

@@ -10,36 +10,33 @@ use superclass 'TAP::Harness' => 3.18;
 use Path::Tiny;
 
 sub aggregate_tests {
-    my ($self, $aggregate, @tests) = @_;
-    my %banned_files = map { $_ => undef } map { glob } split " ", $ENV{HARNESS_SKIP} || '';
-    @tests = grep { _file_ok($_, \%banned_files) } @tests;
-    return $self->SUPER::aggregate_tests($aggregate, @tests);
+    my ( $self, $aggregate, @tests ) = @_;
+    my %banned_files = map { $_ => undef } map { glob } split " ",
+      $ENV{HARNESS_SKIP} || '';
+    @tests = grep { _file_ok( $_, \%banned_files ) } @tests;
+    return $self->SUPER::aggregate_tests( $aggregate, @tests );
 }
 
 my $maybe_prefix = qr/(?:\d+[_-]?)?/;
 
-my @banned_names = (
-    qr/${maybe_prefix}pod\.t/,
-    qr/${maybe_prefix}pod[_-]?coverage\.t/,
-);
+my @banned_names =
+  ( qr/${maybe_prefix}pod\.t/, qr/${maybe_prefix}pod[_-]?coverage\.t/, );
 
 my @banned_code = (
     qr/use Test::Pod/, # also gets Test::Pod::Coverage
 );
 
-
 sub _file_ok {
-    my $file = path(shift);
+    my $file         = path(shift);
     my $banned_files = shift;
     return unless $file->exists;
     my $basename = $file->basename;
     return if grep { $basename =~ $_ } @banned_names;
-    return if exists $banned_files->{$file->relative};
+    return if exists $banned_files->{ $file->relative };
     my $guts = $file->slurp;
     return if grep { $guts =~ m{$_}ms } @banned_code;
     return 1;
 }
-
 
 1;
 
