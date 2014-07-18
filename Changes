@@ -2,6 +2,8 @@ Revision history for TAP-Harness-Restricted
 
 {{$NEXT}}
 
+0.003     2014-07-18 09:34:41-04:00 America/New_York
+
     [ADDED]
 
     - Now also skips files matching space-separated glob patterns in
