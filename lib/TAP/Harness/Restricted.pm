@@ -19,11 +19,19 @@ sub aggregate_tests {
 
 my $maybe_prefix = qr/(?:\d+[_-]?)?/;
 
-my @banned_names =
-  ( qr/${maybe_prefix}pod\.t/, qr/${maybe_prefix}pod[_-]?coverage\.t/, );
+my @banned_names = (
+    qr/${maybe_prefix}pod\.t/,
+    qr/${maybe_prefix}pod[_-]?coverage\.t/,
+    qr/${maybe_prefix}pod[_-]?spell(?:ing)?\.t/,
+    qr/${maybe_prefix}perl[_-]?critic\.t/,
+    qr/${maybe_prefix}kwalitee\.t/,
+);
 
 my @banned_code = (
-    qr/use Test::Pod/, # also gets Test::Pod::Coverage
+    qr/\b (?: use | require )\ Test::(?:
+        CleanNamespaces | DependentModules | EOL | Kwalitee | Mojibake
+        | NoTabs | Perl::Critic | Pod | Portability::Files | Spelling | Vars
+    )\b/x,
 );
 
 sub _file_ok {
