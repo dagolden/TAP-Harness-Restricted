@@ -5,7 +5,7 @@ use warnings;
 package TAP::Harness::Restricted;
 # ABSTRACT: Skip some test files
 
-our $VERSION = '0.004';
+our $VERSION = '0.005';
 
 use superclass 'TAP::Harness' => 3.18;
 use Path::Tiny;
