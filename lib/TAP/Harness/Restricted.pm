@@ -68,8 +68,23 @@ The current criteria include:
 
 =for :list
 * File names that look like F<pod.t> or F<pod-coverage.t>, with optional leading numbers
-* Files that contain the text C<use Test::Pod>
 * Files matching any of the space-separated glob patterns in C<$ENV{HARNESS_SKIP}>
+* Files that look like author tests based on the modules they use or require
+
+The list of modules to exclude is:
+
+=for :list
+* Test::CleanNamespaces
+* Test::DependentModules
+* Test::EOL
+* Test::Kwalitee
+* Test::Mojibake
+* Test::NoTabs
+* Test::Perl::Critic
+* Test::Pod
+* Test::Portability::Files
+* Test::Spelling
+* Test::Vars
 
 Suggestions for other annoying things to filter out are welcome.
 
